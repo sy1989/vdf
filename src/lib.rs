@@ -25,7 +25,7 @@ impl Value{
                     a.push_str(" \"");
                     a.push_str(y.0);
                     a.push_str("\" ");
-                    a.push_str(&y.1.get_string().clone());
+                    a.push_str(&y.1.get_string());
                     a.push_str("\n");
                    // let zz = write!(f," \"{}\" {{{}}}",y.0 ,y.1.get_string()) ;
                 }
@@ -90,7 +90,7 @@ impl fmt::Display for Value{
                     a.push_str(y.0);
                     a.push_str("\" ");
                     a.push_str(" \n");
-                    a.push_str(&y.1.get_string().clone());
+                    a.push_str(&y.1.get_string());
                     //a.push_str("");
                    // let zz = write!(f," \"{}\" {{{}}}",y.0 ,y.1.get_string()) ;
                 }
