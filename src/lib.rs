@@ -1,10 +1,12 @@
-use std::{collections::HashMap, ops::Index, fmt};
+use std::{ ops::Index, fmt};
+use indexmap::IndexMap;
 
 pub enum Value {
     Simple( String),
-    Children( HashMap<String,Value>),
+    Children( Map),
     None,
 }
+type Map = IndexMap<String,Value>;
 impl Value{
     fn get_string(&self) ->String{
         match self {
@@ -122,7 +124,7 @@ impl fmt::Display for KeyValue{
     
 }
 pub struct KeyValue {
-    kv:HashMap<String,Value>
+    kv:Map
 }
 
 pub struct  Reader {
@@ -229,7 +231,7 @@ pub struct  Reader {
 
     }
     pub fn read_kv(&mut self)->KeyValue{
-        let mut h :HashMap<String, Value> = HashMap::new();
+        let mut h :Map = Map::new();
         loop {
             self.eat_white_and_comment();
             if self.end_of_stream() {
@@ -257,9 +259,9 @@ pub struct  Reader {
             return  Value::Children(self.get_kv());
         }
     }
-    pub fn get_kv(&mut self)->HashMap<String, Value>{
+    pub fn get_kv(&mut self)->Map{
         self.read(); //eat {
-        let mut h :HashMap<String, Value> = HashMap::new();
+        let mut h :Map = Map::new();
         loop {
             self.eat_white_and_comment();
             if self.end_of_stream() {
